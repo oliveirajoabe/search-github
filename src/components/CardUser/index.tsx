@@ -3,6 +3,7 @@ import { Button } from "../Button";
 import * as S from "./styles";
 import { Buildings, Link, MapPin, Envelope } from "phosphor-react";
 import { Link as LinkRouter } from "react-router-dom";
+import user from "../../assets/user.png";
 
 interface CardUserProps {
   items: DataUser;

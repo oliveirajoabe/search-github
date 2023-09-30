@@ -14,12 +14,19 @@ export function FetchGitHubContextProvider({
   children,
 }: FetchGitHubContextProviderProps) {
   const [searchInput, setSearchInput] = useState("");
-  const [loadingDataUser, setLoadingDataUser] = useState(false);
-  const [dataUser, setDataUser] = useState<DataUser>({});
-  const [dataRepos, setDataRepos] = useState([]);
-  const [dataRepoDetail, setDataRepoDetail] = useState(null);
 
-  const fetchSearchUser = async (value: string) => {
+  const [dataUser, setDataUser] = useState<DataUser>({});
+  const [loadingDataUser, setLoadingDataUser] = useState(false);
+
+  const [dataRepos, setDataRepos] = useState([]);
+  const [loadingDataRepos, setLoadingDataRepos] = useState(false);
+
+  const [dataRepoDetail, setDataRepoDetail] = useState(null);
+  const [loadingDataRepoDetail, setLoadingDataRepoDetail] = useState(false);
+
+  const [order, setOrder] = useState<Order>("desc");
+
+  const fetchSearchUser = useCallback(async (value: string) => {
     try {
       setLoadingDataUser(true);
       const { data } = await api.get(`/users/${value}`);
@@ -28,7 +35,7 @@ export function FetchGitHubContextProvider({
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
   const debounceChange = useDebounce(fetchSearchUser, 800);
 
@@ -47,37 +54,48 @@ export function FetchGitHubContextProvider({
     [debounceChange]
   );
 
-  const fetchRepos = async (login: string | undefined) => {
-    try {
-      const params = {
-        sort: "stars",
-        direction: "desc",
-      };
+  const fetchRepos = useCallback(
+    async (login: string | undefined) => {
+      try {
+        setLoadingDataRepos(true);
+        const params = {
+          sort: "stars",
+          direction: order,
+        };
 
-      if (login) {
-        const { data } = await api.get(`/users/${login}/repos`, {
-          params,
-        });
-        setDataRepos(data);
+        if (login) {
+          const { data } = await api.get(`/users/${login}/repos`, {
+            params,
+          });
+          setDataRepos(data);
+        }
+        setLoadingDataRepos(false);
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    },
+    [order]
+  );
 
-  const fetchDetailsRepo = async (fullname: string) => {
+  const fetchDetailsRepo = useCallback(async (fullname: string) => {
     try {
+      setLoadingDataRepoDetail(true);
       if (fullname) {
         const { data } = await api.get(`/repos/${fullname}`);
 
         setDataRepoDetail(data);
       }
+      setLoadingDataRepoDetail(false);
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
   const hasUser = useMemo(() => !!Object.keys(dataUser).length, [dataUser]);
+
+  const handleChangeOrder = (value: Order) => {
+    setOrder(value);
+  };
 
   return (
     <FetchGitHubContext.Provider
@@ -91,6 +109,10 @@ export function FetchGitHubContextProvider({
         dataRepos,
         fetchDetailsRepo,
         dataRepoDetail,
+        loadingDataRepos,
+        loadingDataRepoDetail,
+        handleChangeOrder,
+        order,
       }}
     >
       {children}

@@ -138,6 +138,8 @@ type FetchGitHubContextProviderProps = {
   children: ReactNode;
 };
 
+type Order = "desc" | "asc";
+
 interface FetchGitHubContext {
   searchInput: string;
   dataUser: DataUser;
@@ -148,4 +150,8 @@ interface FetchGitHubContext {
   handleChangeInput: (value: React.ChangeEvent<HTMLInputElement>) => void;
   fetchRepos: (login: string | undefined) => void;
   fetchDetailsRepo: (fullname: string) => void;
+  loadingDataRepos: boolean;
+  loadingDataRepoDetail: boolean;
+  handleChangeOrder: (value: Order) => void;
+  order: Order;
 }
