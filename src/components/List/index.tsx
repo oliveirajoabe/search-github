@@ -7,15 +7,28 @@ interface Props {
   data: DataRepos[];
 }
 export const List = ({ data }: Props) => {
-  const { fetchDetailsRepo } = useFetchGitHub();
+  const { fetchDetailsRepo, order, handleChangeOrder } = useFetchGitHub();
+
+  const handleChange = (value: Order) => {
+    handleChangeOrder(value);
+  };
 
   return (
     <div>
-      <div>
-        <span>ordenação:</span>
-        <ArrowDown />
-        <ArrowUp />
-      </div>
+      <S.Order>
+        <span>Order: </span>
+        {order === "asc" && (
+          <button onClick={() => handleChange("desc")} title="desc">
+            <ArrowUp />
+          </button>
+        )}
+
+        {order === "desc" && (
+          <button onClick={() => handleChange("asc")} title="asc">
+            <ArrowDown />
+          </button>
+        )}
+      </S.Order>
       <S.ListStyle>
         {data.map((tab) => (
           <S.ItemCard key={tab.id}>

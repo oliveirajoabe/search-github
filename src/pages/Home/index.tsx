@@ -15,7 +15,7 @@ export const Home = () => {
         onChange={handleChangeInput}
         value={searchInput}
       />
-      {hasUser && <CardUser items={dataUser} />}
+      {!loadingDataUser && hasUser && <CardUser items={dataUser} />}
       {loadingDataUser && <span>Loading...</span>}
     </S.Container>
   );

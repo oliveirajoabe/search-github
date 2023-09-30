@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./styles";
 import { Avatar } from "../../components/Avatar";
 import { List } from "../../components/List";
+import { RoutePrevious } from "../../components/RoutePrevious";
 
 export const Repos = () => {
   const navigate = useNavigate();
-  const { fetchRepos, dataUser, hasUser, dataRepos } = useFetchGitHub();
+  const { fetchRepos, dataUser, hasUser, dataRepos, loadingDataRepos } =
+    useFetchGitHub();
 
   useEffect(() => {
     if (hasUser) {
@@ -16,19 +18,27 @@ export const Repos = () => {
     } else {
       navigate("/");
     }
-  }, [fetchRepos, dataUser, navigate, hasUser]);
+  }, [dataUser.login, fetchRepos, hasUser, navigate]);
 
   return (
-    <S.Container>
-      <S.Header>
-        {dataUser.avatar_url && (
-          <Avatar url={dataUser.avatar_url} alt="imagem do avatar do github" />
-        )}
-        <span>{dataUser.name}</span>
-        <small>{dataUser.login}</small>
-      </S.Header>
+    <>
+      <S.Container>
+        <RoutePrevious />
+        <S.Header>
+          {dataUser.avatar_url && (
+            <Avatar
+              url={dataUser.avatar_url}
+              alt="imagem do avatar do github"
+            />
+          )}
+          <span>{dataUser.name}</span>
+          <small>{dataUser.login}</small>
+        </S.Header>
 
-      <List data={dataRepos} />
-    </S.Container>
+        <List data={dataRepos} />
+
+        {loadingDataRepos && <span>Loading...</span>}
+      </S.Container>
+    </>
   );
 };
