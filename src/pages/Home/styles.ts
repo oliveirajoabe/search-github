@@ -8,6 +8,15 @@ export const Container = styled.div`
 
   padding: 5rem 15rem;
 
+  img {
+    width: 40%;
+    margin-top: 3rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
   @media (max-width: 576px) {
     padding: 5rem 2rem;
   }

@@ -14,7 +14,7 @@ export const CardUser = ({ items }: CardUserProps) => {
       <S.Content>
         <S.WrapperUser>
           {items.avatar_url && (
-            <Avatar url={items.avatar_url} alt="imagem do avatar do github" />
+            <Avatar url={items.avatar_url} alt="image avatar github" />
           )}
 
           <div>
