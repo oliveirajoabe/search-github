@@ -54,3 +54,23 @@ export const LinkStyles = styled.a`
     }
   `}
 `;
+
+export const Order = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    button {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      color: ${theme.grey};
+      font-size: 1.2rem;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  `}
+`;
