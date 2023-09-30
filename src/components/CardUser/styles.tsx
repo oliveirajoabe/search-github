@@ -13,6 +13,13 @@ export const Content = styled.main`
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+  @media (min-width: 577px) and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const Footer = styled.footer`
@@ -22,6 +29,17 @@ export const Footer = styled.footer`
   > a {
     width: 100%;
     text-decoration: none;
+  }
+`;
+
+export const WrapperBio = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+
+  hr {
+    border-style: dashed;
   }
 `;
 
@@ -54,11 +72,6 @@ export const WrapperUser = styled.div`
       }
     }
   `}
-`;
-
-export const Avatar = styled.img`
-  border-radius: 50%;
-  width: 110px;
 `;
 
 export const Names = styled.div`
