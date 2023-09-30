@@ -14,8 +14,10 @@ export function FetchGitHubContextProvider({
   children,
 }: FetchGitHubContextProviderProps) {
   const [searchInput, setSearchInput] = useState("");
-  const [dataUser, setDataUser] = useState<DataUser>({});
   const [loadingDataUser, setLoadingDataUser] = useState(false);
+  const [dataUser, setDataUser] = useState<DataUser>({});
+  const [dataRepos, setDataRepos] = useState([]);
+  const [dataRepoDetail, setDataRepoDetail] = useState(null);
 
   const fetchSearchUser = async (value: string) => {
     try {
@@ -47,9 +49,28 @@ export function FetchGitHubContextProvider({
 
   const fetchRepos = async (login: string | undefined) => {
     try {
+      const params = {
+        sort: "stars",
+        direction: "desc",
+      };
+
       if (login) {
-        const { data } = await api.get(`/users/${login}/repos`);
-        console.log(data);
+        const { data } = await api.get(`/users/${login}/repos`, {
+          params,
+        });
+        setDataRepos(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchDetailsRepo = async (fullname: string) => {
+    try {
+      if (fullname) {
+        const { data } = await api.get(`/repos/${fullname}`);
+
+        setDataRepoDetail(data);
       }
     } catch (error) {
       console.error(error);
@@ -67,6 +88,9 @@ export function FetchGitHubContextProvider({
         loadingDataUser,
         fetchRepos,
         hasUser,
+        dataRepos,
+        fetchDetailsRepo,
+        dataRepoDetail,
       }}
     >
       {children}

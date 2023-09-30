@@ -3,10 +3,12 @@ import { useFetchGitHub } from "../../hooks/useFetchGitHub";
 import { useNavigate } from "react-router-dom";
 
 import * as S from "./styles";
+import { Avatar } from "../../components/Avatar";
+import { List } from "../../components/List";
 
-export const Profile = () => {
+export const Repos = () => {
   const navigate = useNavigate();
-  const { fetchRepos, dataUser, hasUser } = useFetchGitHub();
+  const { fetchRepos, dataUser, hasUser, dataRepos } = useFetchGitHub();
 
   useEffect(() => {
     if (hasUser) {
@@ -18,10 +20,15 @@ export const Profile = () => {
 
   return (
     <S.Container>
-      <div>
+      <S.Header>
+        {dataUser.avatar_url && (
+          <Avatar url={dataUser.avatar_url} alt="imagem do avatar do github" />
+        )}
         <span>{dataUser.name}</span>
-        <span>{dataUser.login}</span>
-      </div>
+        <small>{dataUser.login}</small>
+      </S.Header>
+
+      <List data={dataRepos} />
     </S.Container>
   );
 };

@@ -1,3 +1,4 @@
+import { Avatar } from "../Avatar";
 import { Button } from "../Button";
 import * as S from "./styles";
 import { Buildings, Link, MapPin, Envelope } from "phosphor-react";
@@ -12,7 +13,10 @@ export const CardUser = ({ items }: CardUserProps) => {
     <S.Container>
       <S.Content>
         <S.WrapperUser>
-          <S.Avatar src={items.avatar_url} alt="imagem do avatar do github" />
+          {items.avatar_url && (
+            <Avatar url={items.avatar_url} alt="imagem do avatar do github" />
+          )}
+
           <div>
             <small>Followers: {items.followers}</small>
             <small>Following: {items.following}</small>
@@ -43,7 +47,7 @@ export const CardUser = ({ items }: CardUserProps) => {
           {items.blog && (
             <span>
               <Link />
-              <a href={items.blog} target="_blank" rel="noopener noreferrer">
+              <a href={items.blog} target="_blank">
                 {items.blog}
               </a>
             </span>
@@ -60,6 +64,12 @@ export const CardUser = ({ items }: CardUserProps) => {
           )}
         </S.WrapperInfo>
       </S.Content>
+      {items.bio && (
+        <S.WrapperBio>
+          <hr />
+          <span>{items.bio}</span>
+        </S.WrapperBio>
+      )}
       <S.Footer>
         <LinkRouter to={`/repos`}>
           <Button text="View repos" />
