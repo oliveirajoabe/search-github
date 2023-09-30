@@ -6,12 +6,21 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding: 5rem 15rem;
+  padding: 5rem 20rem;
 
   @media (max-width: 576px) {
     padding: 5rem 2rem;
   }
-  @media (min-width: 577px) and (max-width: 1200px) {
+  @media (min-width: 577px) and (max-width: 992px) {
     padding: 5rem 2rem;
+  }
+`;
+
+export const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > span {
+    margin-top: 10px;
   }
 `;
