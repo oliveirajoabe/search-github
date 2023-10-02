@@ -1,27 +1,41 @@
-# React + TypeScript + Vite
+## Desafio Desbravador
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Para o desenvolvimento deste projeto foi utilizado [Vite](https://vitejs.dev/).
 
-Currently, two official plugins are available:
+### Comandos para execução do projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Tenha o npm ou yarn instalado em sua maquina
+- Instale as dependências
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```
+npm install
+```
+ou
+```
+yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Apos a instaçaão das dependencias podemos executar o projeto com o comando
+```
+npm run dev
+```
+ou
+```
+yarn dev
+```
+- Por padrão o projeto sera iniciado em http://localhost:5173
+---
+Pagina inicial:
+![image](https://github.com/oliveirajoabe/search-github/assets/43959705/bc5c2647-24a5-423f-af76-3a7878d2f34e)
+
+Feito a busca deve aparecer o usuario logo abaixo:
+![image](https://github.com/oliveirajoabe/search-github/assets/43959705/0aaa19d5-5463-48df-84b4-acceaba9c7df)
+
+Repositorios de um usuario:
+![image](https://github.com/oliveirajoabe/search-github/assets/43959705/432b2b5e-2061-41fa-b4df-4734b056e0fa)
+
+Detalhes do repositorio:
+![image](https://github.com/oliveirajoabe/search-github/assets/43959705/d793fd09-c919-418f-9dca-752d830435de)
+
+---
+O projeto esta hospedado no vercel: [Buscador github - Teste Front](https://search-github-nine.vercel.app/)
