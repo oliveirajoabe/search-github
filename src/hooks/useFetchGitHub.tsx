@@ -26,12 +26,17 @@ export function FetchGitHubContextProvider({
 
   const [order, setOrder] = useState<Order>("desc");
 
+  const [totalRepos, setTotalRepos] = useState(0);
+
+  const [page, setPage] = useState(1);
+
   const fetchSearchUser = useCallback(async (value: string) => {
     try {
       setLoadingDataUser(true);
       const { data } = await api.get(`/users/${value}`);
       setDataUser(data);
       setLoadingDataUser(false);
+      setTotalRepos(data.public_repos);
     } catch (error) {
       console.error(error);
     }
@@ -61,6 +66,8 @@ export function FetchGitHubContextProvider({
         const params = {
           sort: "stars",
           direction: order,
+          page,
+          per_page: 9,
         };
 
         if (login) {
@@ -74,7 +81,7 @@ export function FetchGitHubContextProvider({
         console.error(error);
       }
     },
-    [order]
+    [order, page]
   );
 
   const fetchDetailsRepo = useCallback(async (fullname: string) => {
@@ -113,6 +120,9 @@ export function FetchGitHubContextProvider({
         loadingDataRepoDetail,
         handleChangeOrder,
         order,
+        totalRepos,
+        page,
+        setPage,
       }}
     >
       {children}
