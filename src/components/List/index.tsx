@@ -3,14 +3,32 @@ import * as S from "./styles";
 import { Link as LinkRouter } from "react-router-dom";
 import { Link, Star, ArrowDown, ArrowUp } from "phosphor-react";
 import { useFetchGitHub } from "../../hooks/useFetchGitHub";
+import { Pagination } from "../Pagination";
+
 interface Props {
   data: DataRepos[];
 }
 export const List = ({ data }: Props) => {
-  const { fetchDetailsRepo, order, handleChangeOrder } = useFetchGitHub();
+  const {
+    fetchDetailsRepo,
+    order,
+    handleChangeOrder,
+    totalRepos,
+    setPage,
+    page,
+  } = useFetchGitHub();
 
   const handleChange = (value: Order) => {
     handleChangeOrder(value);
+  };
+
+  const pageCount = Math.ceil(totalRepos / 9);
+
+  console.log(totalRepos);
+  console.log(page);
+
+  const handlePageClick = (selectedItem: { selected: number }) => {
+    setPage(selectedItem.selected + 1);
   };
 
   return (
@@ -62,6 +80,7 @@ export const List = ({ data }: Props) => {
           </S.ItemCard>
         ))}
       </S.ListStyle>
+      <Pagination pageCount={pageCount} onClick={handlePageClick} />
     </div>
   );
 };
