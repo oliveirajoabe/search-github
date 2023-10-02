@@ -154,4 +154,7 @@ interface FetchGitHubContext {
   loadingDataRepoDetail: boolean;
   handleChangeOrder: (value: Order) => void;
   order: Order;
+  totalRepos: number;
+  page: number;
+  setPage: (value: number) => void;
 }
